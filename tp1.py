@@ -1,4 +1,5 @@
-# Trabajo Práctico N°1 # PROCESAMIENTO
+# Trabajo Práctico N°1 
+# PROCESAMIENTO
 def procesar_envio(cp, direc, tipo, pago):
     # INICIALIZACIÓN DE VARIABLES
     destino = ""
@@ -101,11 +102,4 @@ def procesar_envio(cp, direc, tipo, pago):
     final = int(inicial * descuento[pago])
 
     # SALIDA
-    """print("País de destino del envío:", destino)
-    print("Provincia destino:", provincia)
-    print("Importe inicial a pagar:", inicial)
-    print("Importe final a pagar:", final)
-    print()
-    print()"""
     return (destino,provincia,inicial,final)
-# FIN

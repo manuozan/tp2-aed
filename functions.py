@@ -2,19 +2,11 @@
 import os
 
 def procesar_timestamp(timestamp):
-    primer_caracter = ""
-    for char in timestamp:
-
-        if char == "H" or char == "S":
-            primer_caracter = char
-
-        elif char == "C":
-            if primer_caracter == "S":
-                return "Soft Control"
-            if primer_caracter == "H":
-                return "Hard Control"
-
-    return
+    if "SC" in timestamp:
+        return "Soft Control"
+    elif "HC" in timestamp:
+        return "Hard Control"
+    
 
 def clear_console():
     # Para Windows
@@ -26,36 +18,30 @@ def clear_console():
 
 
 def procesar_direccion(direc, control):
-    palabras = direc.split(' ')
+    if control != "Hard Control":
+        return True  # Si no es "Hard Control", siempre es válido
+
+    tiene_numero = False
     valido = True
+    palabras = direc.split(' ')
 
+    for palabra in palabras:
+        if palabra == "":
+            continue
 
-    if control == "Hard Control":
+        anterior_mayus = False
+        for caracter in palabra:
+            if caracter.isupper() and anterior_mayus:
+                valido = False  # Dos mayúsculas consecutivas
+            if not caracter.isalnum() and caracter != ".":
+                valido = False  # No es alfanumérico ni un punto
+            if caracter.isdigit():
+                tiene_numero = True
+            anterior_mayus = caracter.isupper()
 
-        for palabra in palabras:
-            anterior_mayus = False
-            dos_mayus = False
-            solo_num = True
-            alfanumerico = True
+    # Debe ser válido y tener al menos un número
+    return valido and tiene_numero
 
-            
-            if palabra != "":
-                for caracter in palabra:
-                    
-
-                    if caracter.isupper() and anterior_mayus:
-                        dos_mayus = True
-                        valido = False
-                    anterior_mayus = caracter.isupper()
-
-                    if not caracter.isdigit() and caracter != ".":
-                        solo_num = False
-                        
-                    if not caracter.isalpha() and not caracter.isdigit() and caracter != ".":
-                        alfanumerico = False
-                        valido = False
-        
-    return valido
 
 def contar_tipo_envio(tipo):
     ccs = ccc = cce = 0
@@ -82,7 +68,7 @@ def calcular_mayor (ccs,ccc,cce):
 
 def calcular_porcentaje(cont, ac):
     if ac != 0:
-        porc = cont *100 /ac
+        porc = (cont *100) /ac
         porc = int(porc)
     else:
         porc = 0        
@@ -95,3 +81,4 @@ def calcular_promedio(cont, ac):
     else:
         prom = 0        
     return prom
+
