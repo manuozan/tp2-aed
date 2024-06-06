@@ -32,7 +32,7 @@ while True:
     if linea == "": # Si no hay más líneas, salir del bucle
         break
 
-    cp = linea[:9].strip()
+    cp = eliminar_espacios(linea[:9])
     direc = linea[9:28]
     tipo_envio = int(linea[29])
     forma_pago = int(linea[30])
@@ -42,7 +42,7 @@ while True:
     if n == 1:
         primer_cp = cp
     
-    print(n, direc, procesar_direccion(direc, control))
+    #print(n, direc, procesar_direccion(direc, control))
     if procesar_direccion(direc, control):
         destino = procesar_envio(cp, direc, tipo_envio, forma_pago)[0]
         provincia = procesar_envio(cp, direc, tipo_envio, forma_pago)[1]
