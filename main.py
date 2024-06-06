@@ -32,7 +32,8 @@ while True:
     if linea == "": # Si no hay más líneas, salir del bucle
         break
 
-    cp = linea[:9].strip()
+    cp = eliminar_espacios(linea[:9])
+    print(cp)
     direc = linea[9:28]
     tipo_envio = int(linea[29])
     forma_pago = int(linea[30])
