@@ -132,4 +132,3 @@ def eliminar_espacios(cadena):
         texto += palabra 
     return texto
 
-print(eliminar_espacios("    hola mundo       "))
